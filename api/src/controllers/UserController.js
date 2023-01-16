@@ -1,5 +1,21 @@
 import mongoose from "mongoose";
 
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+let Persons = new Schema({
+  name: {
+      type: String
+  },
+  numberPhone: {
+      type: Number
+  }
+}, {
+  collection: 'persons'
+});
+
+module.exports = mongoose.model('Persons', Persons);
+
 const UserSchema = new mongoose.Schema(
   {
     name: {

@@ -1,7 +1,7 @@
-
 const express = require('express');
 const personRoutes = express.Router();
 
+// Require Business model in our routes module
 let Person = require('./persons.model');
 
 // Defined store route
@@ -44,7 +44,8 @@ personRoutes.route('/update/:id').post(function (req, res) {
         else {
             console.log(person);
             person.name = req.body.name;
-            person.company = req.body.numberPhone;
+            person.company = req.body.company;
+            person.age = req.body.age;
 
             person.save().then(business => {
                 res.json('Update complete');

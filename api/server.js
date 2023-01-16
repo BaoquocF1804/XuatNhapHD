@@ -1,31 +1,24 @@
-const express = require("express");
-const route = require("./src/routes");
-require("dotenv").config();
+const express = require('express');
 const app = express();
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
+const bodyParser = require('body-parser');
+const PORT = 4000;
+const cors = require('cors');
+const mongoose = require('mongoose');
+const config = require('./DB.js');
+const personsRoute = require('./persons.route');
+
+mongoose.Promise = global.Promise;
+mongoose.connect(config.DB, { useNewUrlParser: true }).then(
+    () => {console.log('Database is connected') },
+    err => { console.log('Can not connect to the database'+ err)}
+);
+
+app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+app.use('/persons', personsRoute);
+
+app.listen(PORT, function(){
+    console.log('Server is running on Port:',PORT);
 });
-app.use(bodyParser.json({ limit: "50mb" }));
-app.use(
-  bodyParser.urlencoded({
-    limit: "50mb",
-    extended: true,
-    parameterLimit: 50000,
-  })
-);
-app.use(express.json());
-
-route(app);
-
-app.listen(3000 || process.env.PORT, () =>
-  console.log("listening on port " + process.env.PORT)
-);
