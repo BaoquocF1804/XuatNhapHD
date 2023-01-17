@@ -17,6 +17,11 @@ const StyledFormInput = styled.div`
     margin-bottom: 4px;
     font-size: 16px;
     font-weight: 600;
+    ::before {
+      content: "*";
+      color: #e5285d;
+      margin-right: 4px;
+    }
   }
   .form-input {
     background: white;

@@ -89,6 +89,8 @@ const MainLayout = ({ children }: { children?: ReactNode }) => {
   useEffect(() => {
     if (router.asPath.split("/").includes("nhap_hoa_don")) {
       setActiveId(1);
+    } else if (router.asPath.split("/").includes("danh_sach_hoa_don")) {
+      setActiveId(2);
     }
   }, [router]);
   return (
@@ -112,8 +114,8 @@ const MainLayout = ({ children }: { children?: ReactNode }) => {
                 <span className="content">Nhập hoá đơn</span>
               </li>
             </Link>
-            <Link href="/">
-              <li className="list-item">
+            <Link href="/danh_sach_hoa_don">
+              <li className={`list-item ${activeId === 2 && "active"}`}>
                 <div className="icon">
                   <UnorderedListOutlined />
                 </div>
@@ -121,7 +123,7 @@ const MainLayout = ({ children }: { children?: ReactNode }) => {
               </li>
             </Link>
             <Link href="/">
-              <li className="list-item">
+              <li className={`list-item ${activeId === 3 && "active"}`}>
                 <div className="icon">
                   <UnorderedListOutlined />
                 </div>

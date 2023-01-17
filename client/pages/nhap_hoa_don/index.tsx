@@ -18,9 +18,12 @@ const StyledFormContainer = styled.form`
     margin: 0 8px 12px;
     align-items: center;
   }
+  .total {
+    font-size: 20px;
+    font-weight: 600;
+  }
   .icon-container {
     justify-content: center;
-    cursor: pointer;
     font-size: 20px;
     .add-btn {
       border: none;
@@ -121,7 +124,9 @@ const index = () => {
           </button>
         </div>
 
-        <div className="row-container">Tổng tiền hoá đơn: {totalPrice}</div>
+        <div className="row-container total">
+          Tổng tiền hoá đơn: {totalPrice}
+        </div>
         <div className="row-container">
           <FormInput
             control={control}

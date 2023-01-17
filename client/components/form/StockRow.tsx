@@ -1,4 +1,5 @@
 import { IStock } from "@/types";
+import { easyReadMoney } from "@/utils/convert";
 import {
   ChangeEvent,
   Dispatch,
@@ -15,6 +16,9 @@ const StyledStockContainer = styled.div`
     gap: 40px;
     margin: 0 8px 12px;
     align-items: center;
+    .stock_total {
+      font-size: 16px;
+    }
   }
 `;
 const StockRow = ({
@@ -78,7 +82,9 @@ const StockRow = ({
         <FormInputNoControl labelString="Số lượng" handleInput={handleAmount} />
       </div>
       <div className="row-container">
-        <div className="stock_total">Thành tiền: {stock.stockTotal}</div>
+        <div className="stock_total">
+          Thành tiền: {easyReadMoney(stock.stockTotal)}
+        </div>
       </div>
     </StyledStockContainer>
   );
