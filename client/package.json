@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/react-datepicker": "^4.8.0",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "mongoose": "^6.8.4"
   }
 }
