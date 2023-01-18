@@ -3,47 +3,50 @@ import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 import { IStock } from "@/types";
 import styled from "styled-components";
 import InvoiceItemsTable from "./InvoiceItemsTable";
+import { getUsers } from "@/lib/helper";
+import { useQuery } from "react-query";
 
 interface Item {
   key: React.Key;
   name: string;
-  phone_number: number;
-  address: string;
-  invoice_pay: number;
+  phone: number;
+  diaChi: string;
+  tongHoadon: number;
   invoice_description: string;
-  buy_date: Date | string;
-  invoice_total: number;
+  date: Date | string;
+  soTienTra: number;
   stocks?: IStock[];
 }
+// const { isLoading, isError, data, error } = useQuery('users', getUsers)
 
-const originData: Item[] = [];
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i,
-    name: `Edrward ${i}`,
-    phone_number: 8127322340,
-    address: `London Park no. ${i}`,
-    invoice_pay: i,
-    invoice_description: "ccc",
-    buy_date: "ccc",
-    invoice_total: 20000,
-    stocks: [
-      {
-        stockName: "Hàng Việt Nam",
-        stockAmount: 20,
-        stockPrice: 13,
-        stockTotal: 2222,
-      },
-    ],
-  });
-}
+// const originData: Item[] = [];
+// for (let i = 0; i < 10; i++) {
+//   originData.push({
+//     key: i,
+//     name: `Edrward ${i}`,
+//     phone_number: 8127322340,
+//     address: `London Park no. ${i}`,
+//     invoice_pay: i,
+//     invoice_description: "ccc",
+//     buy_date: "ccc",
+//     invoice_total: 20000,
+//     stocks: [
+//       {
+//         stockName: "Hàng Việt Nam",
+//         stockAmount: 20,
+//         stockPrice: 13,
+//         stockTotal: 2222,
+//       },
+//     ],
+//   });
+// }
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;
   dataIndex: string;
   title: any;
   inputType: "number" | "text";
   record: Item;
-  index: number;
+  index: number;   
   children: React.ReactNode;
 }
 
@@ -83,7 +86,10 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
 const InvoiceListTable: React.FC = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const { isLoading, isError, data, error } = useQuery('users', getUsers)
+  // if(isLoading) return <div>Employee is Loading...</div>;
+  // if(isError) return <div>Got Error {error}</div>
+
   const [editingKey, setEditingKey] = useState("");
 
   const isEditing = (record: Item) => record.key === editingKey;
@@ -109,11 +115,11 @@ const InvoiceListTable: React.FC = () => {
           ...item,
           ...row,
         });
-        setData(newData);
+        // setData(newData);
         setEditingKey("");
       } else {
         newData.push(row);
-        setData(newData);
+          
         setEditingKey("");
       }
     } catch (errInfo) {
@@ -130,25 +136,25 @@ const InvoiceListTable: React.FC = () => {
     },
     {
       title: "Số điện thoại",
-      dataIndex: "phone_number",
+      dataIndex: "phone",
       width: "300px",
       editable: true,
     },
     {
       title: "Địa chỉ",
-      dataIndex: "address",
+      dataIndex: "diaChi",
       width: "500px",
       editable: true,
     },
     {
       title: "Tổng hoá đơn",
-      dataIndex: "invoice_total",
+      dataIndex: "tongHoadon",
       width: "300px",
       editable: true,
     },
     {
       title: "Số tiền trả",
-      dataIndex: "invoice_pay",
+      dataIndex: "soTienTra",
       width: "300px",
       editable: true,
     },
@@ -197,7 +203,8 @@ const InvoiceListTable: React.FC = () => {
       }),
     };
   });
-
+  getUsers().then(res => console.log(res));
+  // const {isLoading, isError, data, error} = useQuery('users', getUsers)
   return (
     <Form form={form} component={false}>
       <Table
@@ -219,7 +226,7 @@ const InvoiceListTable: React.FC = () => {
               <InvoiceItemsTable />
               <div className="exp-item">
                 <div className="exp-item-title">Ngày mua:</div>
-                <p className="exp-item-content">{record.buy_date as string}</p>
+                <p className="exp-item-content">{record.date as string}</p>
               </div>
               <div className="exp-item">
                 <div className="exp-item-title">Ghi chú:</div>
