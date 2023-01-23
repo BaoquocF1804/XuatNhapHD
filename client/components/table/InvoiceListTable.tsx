@@ -12,7 +12,7 @@ interface Item {
   phone: number;
   diaChi: string;
   tongHoadon: number;
-  invoice_description: string;
+  ghiChu: string;
   date: Date | string;
   soTienTra: number;
   stocks?: IStock[];
@@ -155,6 +155,12 @@ const InvoiceListTable: React.FC = () => {
     {
       title: "Số tiền trả",
       dataIndex: "soTienTra",
+      width: "300px",
+      editable: true,
+    },
+    {
+      title: "Dư nợ",
+      dataIndex: "duNo",
       width: "300px",
       editable: true,
     },

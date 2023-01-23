@@ -8,7 +8,7 @@ const userSchema = new Schema({
     soTienTra: Number,
     duNo: Number,
     date: String,
-    duNo: String,
+    ghiChu: String
 });
 
 const Users = models.user || model('user', userSchema)
